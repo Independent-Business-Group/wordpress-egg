@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  wordpress:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      # Database Configuration
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASSWORD: wordpress_password
+      
+      # Optional: DO Spaces (comment out for local testing)
+      # DO_SPACES_BUCKET: your-bucket
+      # DO_SPACES_ENDPOINT: syd1.digitaloceanspaces.com
+      # DO_SPACES_KEY: your-key
+      # DO_SPACES_SECRET: your-secret
+      # DO_SPACES_REGION: syd1
+      # BUCKET_SITE_PATH: test-site
+    depends_on:
+      - mysql
+    volumes:
+      # Mount wp-content for local development
+      - ./wp-content:/var/www/html/wp-content
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql_data:
