@@ -32,10 +32,10 @@ echo "→ Database: ${DB_NAME}@${DB_HOST}:${DB_PORT}"
 echo "→ User: ${DB_USER}"
 
 # Wait for database to be ready
-echo "→ Waiting for database connection..."
+echo "→ Waiting for database connection to ${DB_NAME}..."
 MAX_TRIES=30
 COUNT=0
-until mysql -h"${DB_HOST}" -P"${DB_PORT}" -u"${DB_USER}" -p"${DB_PASSWORD}" -e "SELECT 1" &>/dev/null || [ $COUNT -eq $MAX_TRIES ]; do
+until mysql -h"${DB_HOST}" -P"${DB_PORT}" -u"${DB_USER}" -p"${DB_PASSWORD}" "${DB_NAME}" -e "SELECT 1" &>/dev/null || [ $COUNT -eq $MAX_TRIES ]; do
     COUNT=$((COUNT + 1))
     echo "   Database not ready, waiting... (${COUNT}/${MAX_TRIES})"
     sleep 2
@@ -43,10 +43,11 @@ done
 
 if [ $COUNT -eq $MAX_TRIES ]; then
     echo "❌ Database connection failed after ${MAX_TRIES} attempts"
+    echo "   Ensure database '${DB_NAME}' exists and user '${DB_USER}' has access"
     exit 1
 fi
 
-echo "✓ Database connected"
+echo "✓ Database '${DB_NAME}' connected"
 
 # Generate wp-config.php using PHP script
 echo "→ Generating wp-config.php..."
