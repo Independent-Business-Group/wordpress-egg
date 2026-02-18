@@ -3,6 +3,7 @@
 /wp-includes/
 /wp-content/
 wp-*.php
+index.php         # WordPress core file (not the placeholder!)
 xmlrpc.php
 license.txt
 readme.html
@@ -13,11 +14,19 @@ wp-config.php
 # Build artifacts
 wordpress.tar.gz
 
-# Docker files (not used - PHP buildpack only)
-Dockerfile*
-docker-compose*.yml
+# Docker files (local development only)
+Dockerfile
+docker-compose.yml
 docker-entrypoint.sh
 .dockerignore
+uploads.ini
+commands.sh
+start-local.sh
+README-DOCKER.md
+
+# Backup files
+*.bak
+index.php.bak
 
 # Local development
 .env
