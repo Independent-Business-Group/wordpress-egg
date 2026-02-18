@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script>
+if (localStorage.pdocsTheme) {
+    document.documentElement.dataset.theme = localStorage.pdocsTheme;
+}
+</script><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="">
+
+<meta name="generator" content="Hugo 0.145.0">
+
+<meta name="google-site-verification" content="CAYPZwe7daX8KlYYZfB4VMjfT4g8Tqrrc4Q3g_wMvI8">
+
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="@DigitalOcean">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://docs.digitalocean.com/404.html">
+
+
+<meta name="keywords" content="DigitalOcean, cloud computing">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"><link rel="stylesheet" href="/css/bundle.min.c054375fb07606b82de722951e73c02633be9882ee70ac51f634ade9b89517df.css" integrity="sha256-wFQ3X7B2Brgt5yKVHnPAJjO&#43;mILucKxR9jSt6biVF98=">
+<link rel="shortcut icon" type="image/png" href="/favicon.png">
+<title>404 Page not found | DigitalOcean Documentation</title>
+
+</head>
+
+<body>
+
+    
+    
+
+
+
+
+
+    
+    <header id="top-nav" class="pico container-fluid"><nav>
+    
+    <button id="mobile-menu" class="mobile-nav">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    
+    <ul>
+        <li id="top-nav-title-logo" >
+            <a href="https://docs.digitalocean.com/"><div id="logo"><?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 65.2 173.5 180 180" version="1.1" viewBox="65.2 173.5 180 180" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<style type="text/css">
+	.st0{fill:#0080FF;}
+</style>
+
+	
+		
+			
+				
+					
+						<path class="st0" d="m155.2 351.7v-34.2c36.2 0 64.3-35.9 50.4-74-5.1-14.1-16.4-25.4-30.5-30.5-38.1-13.8-74 14.2-74 50.4h-34.1c0-57.7 55.8-102.7 116.3-83.8 26.4 8.3 47.5 29.3 55.7 55.7 18.9 60.6-26 116.4-83.8 116.4z"/>
+					
+					<polygon class="st0" points="155.3 317.6 121.3 317.6 121.3 283.6 121.3 283.6 155.3 283.6 155.3 283.6"/>
+					<polygon class="st0" points="121.3 343.8 95.1 343.8 95.1 343.8 95.1 317.6 121.3 317.6"/>
+					<path class="st0" d="m95.1 317.6h-21.9v-21.9h21.9v21.9z"/>
+				
+			
+		
+	
+
+</svg>
+</div><span>DigitalOcean | Docs</span>
+            </a>
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            
+            <input id="top-nav-search" type="search" name="search" placeholder="Search" aria-label="Search"/>
+        </li>
+    </ul>
+
+    <ul><li class="top-nav-section-links not-mobile-nav">
+            <a href="https://docs.digitalocean.com/platform/">Platform</a>
+        </li><li class="top-nav-section-links not-mobile-nav">
+            <a href="https://docs.digitalocean.com/products/">Products</a>
+        </li><li class="top-nav-section-links not-mobile-nav">
+            <a href="https://docs.digitalocean.com/reference/">Reference</a>
+        </li><li class="top-nav-section-links not-mobile-nav">
+            <a href="https://docs.digitalocean.com/support/">Support</a>
+        </li><li id="sign-up" class="not-mobile-nav">
+            <a href="https://cloud.digitalocean.com/registrations/new"><button>Sign Up</button></a>
+        </li>
+        <li>
+            <button id="light-dark-toggle" class="outline not-mobile-nav"
+                >
+            </button>
+        </li>
+    </ul>
+</nav>
+
+    </header>
+    
+
+    <div class="main-grid">
+        <aside id="left-nav" class="pico"></aside>
+
+        <main id="content">
+            <div class="pico before-content"></div>
+
+            <section>
+                <hgroup id="content-header">
+                    <h1></h1><p></p>
+</hgroup>
+<section class="container">
+    <div class="page-not-found-columns">
+        <hgroup>
+            <h1>Sorry, but we couldn&#39;t find the page you were looking for.</h1>
+            <p>Maybe one of these other links can help.</p>
+        </hgroup><div class="this-is-fine">
+            <img src="https://docs.digitalocean.com/images/this-is-fine-sammy.b1dcf322c29860c7327fcfe3b087f787db929fe2314fe4364c4422e146ef1967.png"
+                 alt="An illustration of Sammy the Shark, DigitalOcean's mascot, styled after the popular 'This Is Fine' dog comic." />
+        </div></div>
+
+    <div class="card-columns card-columns-2">
+    
+        <article class="card">
+    <a href="/platform/" class="card-primary-action" ></a>
+    <header>
+        <img class="card-icon" src="https://docs.digitalocean.com/images/icons/platform.svg">
+        <div class="card-title">DigitalOcean Platform Overview</div>
+    </header><p>Information about the DigitalOcean platform, like billing details, release notes, product availability by datacenter, support plans, and account details.</p>
+</article>
+
+        <article class="card">
+    <a href="/products/" class="card-primary-action" ></a>
+    <header>
+        <img class="card-icon" src="https://docs.digitalocean.com/images/icons/products.svg">
+        <div class="card-title">Product Home</div>
+    </header><p>Information on DigitalOcean product features, pricing, availability, and limits; how to use products from the control panel; how to manage your account, teams, and billing; and platform details, release notes, and product policies.</p>
+</article>
+
+        <article class="card">
+    <a href="/reference/" class="card-primary-action" ></a>
+    <header>
+        <img class="card-icon" src="https://docs.digitalocean.com/images/icons/reference.svg">
+        <div class="card-title">Reference Home</div>
+    </header><p>Manage resources programmatically and integrate across the developer ecosystem with CLIs, APIs, and SDKs.</p>
+</article>
+
+        <article class="card">
+    <a href="/support/" class="card-primary-action" ></a>
+    <header>
+        <img class="card-icon" src="https://docs.digitalocean.com/images/icons/support.svg">
+        <div class="card-title">Support Home</div>
+    </header><p>Looking for technical support with your DigitalOcean account or infrastructure? Start here.</p>
+</article>
+</div>
+</section>
+</section>
+        </main>
+
+        <aside id="right-nav"></aside>
+
+        <footer id="footer" class="pico">
+            <div id="footer-top" class="footer-section"><div>
+        <h5>Company</h5>
+        <ul><li><a href="https://www.digitalocean.com/about">About</a></li><li><a href="https://www.digitalocean.com/careers">Careers</a></li><li><a href="https://www.digitalocean.com/blog">Blog</a></li></ul>
+    </div><div>
+        <h5>Docs</h5>
+        <ul><li><a href="https://docs.digitalocean.com">Docs Home</a></li><li><a href="https://docs.digitalocean.com/reference/api">API Reference</a></li><li><a href="https://docs.digitalocean.com/reference/doctl">CLI Reference</a></li><li><a href="https://docs.digitalocean.com/release-notes">Release Notes</a></li><li><a href="https://www.digitalocean.com/trust">Trust Platform</a></li></ul>
+    </div><div>
+        <h5>Community</h5>
+        <ul><li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li><li><a href="https://www.digitalocean.com/community/questions">Q&amp;A</a></li><li><a href="https://www.digitalocean.com/community/pages/write-for-digitalocean">Write for DOnations</a></li><li><a href="https://www.digitalocean.com/currents">Currents Research</a></li><li><a href="https://www.digitalocean.com/legal">Legal</a></li><li><a href="https://www.digitalocean.com/community/pages/code-of-conduct">Code of Conduct</a></li></ul>
+    </div><div>
+        <h5>Support</h5>
+        <ul><li><a href="/support">Support Center</a></li><li><a href="https://www.digitalocean.com/company/contact/abuse">Report Abuse</a></li></ul>
+    </div></div>
+
+<hr>
+
+<div id="footer-bottom" class="footer-section">
+    <small class="copyright">© 2026 DigitalOcean, LLC. All rights reserved</small>
+
+    <div><a href="https://x.com/digitalocean" class="social">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a><a href="https://www.instagram.com/thedigitalocean" class="social">
+            <i class="fa-brands fa-instagram"></i>
+        </a><a href="https://www.facebook.com/DigitalOceanCloudHosting" class="social">
+            <i class="fa-brands fa-facebook"></i>
+        </a><a href="https://discord.gg/digitalocean" class="social">
+            <i class="fa-brands fa-discord"></i>
+        </a><a href="https://www.youtube.com/DigitalOcean" class="social">
+            <i class="fa-brands fa-youtube"></i>
+        </a><a href="https://www.linkedin.com/company/digitalocean" class="social">
+            <i class="fa-brands fa-linkedin"></i>
+        </a><a href="https://github.com/digitalocean" class="social">
+            <i class="fa-brands fa-github"></i>
+        </a></div>
+</div>
+
+        </footer>
+    </div>
+
+    
+    <script src="https://docs.digitalocean.com/js/bundle.min.06ecf92af9ec815a40bfd9b29bfdff72ede39c8ffc299f2acfbe2031002939a7b985b8ae5db3873ccdb8ffba5e6bb41df7897f2114f41132ea0d86d47557d8ed.js" integrity="sha512-Buz5KvnsgVpAv9mym/3/cu3jnI/8KZ8qz74gMQApOae5hbiuXbOHPM24/7pea7Qd94l/IRT0ETLqDYbUdVfY7Q=="></script>
+
+
+<script src="https://assets.digitalocean.com/labs/search.js.gz" defer onload="init_algolia()"></script>
+<div id="algolia_empty_state">
+    <h3>We can&#39;t find any results for your search.</h3>
+    <p>Try using different keywords or simplifying your search terms.</p>
+</div>
+
+
+<script async src="https://yxt72quk3m7tpemhea54qobd.agents.do-ai.run/static/chatbot/widget.js"
+    data-agent-id="2d2d7649-d6e0-11f0-b074-4e013e2ddde4"
+    data-chatbot-id="vJdL-kXYvZQL1Zc9inmdPyPavYK6vjeL"
+    data-name="DigitalOcean Docs Agent"
+    data-primary-color="#0069ff"
+    data-secondary-color="#E5E8ED"
+    data-button-background-color="#0061EB"
+    data-starting-message="This is the DigitalOcean Docs AI, built with OpenAI GPT-4o. You can ask it questions such as `How do I create a Droplet?` or `How do I set up a domain?`
+
+Responses may not always be accurate, but we’re continuously working to improve the experience. This AI does not connect to DigitalOcean’s support team. For support, visit our support page: https://do.co/support.
+
+We’d also like to hear your feedback about your experience: https://do.co/ask-docs-feedback"
+    data-logo="https://product-docs.nyc3.cdn.digitaloceanspaces.com/ai-agent-icon.svg"
+></script>
+
+    
+</body>
+</html>
