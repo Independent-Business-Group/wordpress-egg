@@ -1,0 +1,30 @@
+# WordPress Core (downloaded during build)
+/wp-admin/
+/wp-includes/
+/wp-content/
+wp-*.php
+xmlrpc.php
+license.txt
+readme.html
+
+# WordPress Config (generated during build)
+wp-config.php
+
+# Build artifacts
+wordpress.tar.gz
+
+# Docker files (not used - PHP buildpack only)
+Dockerfile*
+docker-compose*.yml
+docker-entrypoint.sh
+.dockerignore
+
+# Local development
+.env
+.DS_Store
+.vscode/
+*.log
+
+# Dependencies
+node_modules/
+vendor/
