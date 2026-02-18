@@ -37,11 +37,12 @@ RUN a2enmod rewrite expires headers
 
 # Set recommended PHP settings
 RUN { \
-    echo 'memory_limit=256M'; \
-    echo 'upload_max_filesize=64M'; \
-    echo 'post_max_size=64M'; \
+    echo 'memory_limit=512M'; \
+    echo 'upload_max_filesize=128M'; \
+    echo 'post_max_size=128M'; \
     echo 'max_execution_time=300'; \
     echo 'max_input_time=300'; \
+    echo 'max_input_vars=3000'; \
     } > /usr/local/etc/php/conf.d/wordpress.ini
 
 # Download and install WordPress
