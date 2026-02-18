@@ -27,9 +27,19 @@ if [ -n "$DO_SPACES_BUCKET" ] && [ -n "$BUCKET_SITE_PATH" ]; then
     echo "→ Syncing wp-content from DO Spaces..."
     echo "   Bucket: ${DO_SPACES_BUCKET}/${BUCKET_SITE_PATH}"
     
-    # Install rclone
-    echo "   Installing rclone..."
-    curl -sL https://rclone.org/install.sh | bash
+    # Install rclone to local bin directory
+    echo "   Installing rclone locally..."
+    mkdir -p ~/bin
+    cd ~/bin
+    curl -sL https://downloads.rclone.org/rclone-current-linux-amd64.zip -o rclone.zip
+    unzip -q rclone.zip
+    cp rclone-*/rclone ./
+    chmod +x rclone
+    rm -rf rclone-* rclone.zip
+    cd - > /dev/null
+    
+    # Add to PATH
+    export PATH=~/bin:$PATH
     
     # Configure rclone for DO Spaces
     mkdir -p ~/.config/rclone
@@ -45,15 +55,14 @@ acl = public-read
 EOF
     
     # Download wp-content from bucket (if exists)
-    if rclone lsd dospaces:${DO_SPACES_BUCKET}/${BUCKET_SITE_PATH}/wp-content &>/dev/null; then
+    if ~/bin/rclone lsd dospaces:${DO_SPACES_BUCKET}/${BUCKET_SITE_PATH}/wp-content &>/dev/null; then
         echo "   Downloading wp-content (themes, plugins, uploads)..."
-        rclone sync dospaces:${DO_SPACES_BUCKET}/${BUCKET_SITE_PATH}/wp-content ./wp-content \
+        ~/bin/rclone sync dospaces:${DO_SPACES_BUCKET}/${BUCKET_SITE_PATH}/wp-content ./wp-content \
             --transfers 8 \
             --checkers 8 \
             --exclude "cache/**" \
             --exclude "upgrade/**" \
-            --exclude "*.log" \
-            --progress
+            --exclude "*.log"
         echo "✅ wp-content synced from bucket"
     else
         echo "⚠ No wp-content found in bucket (using fresh WordPress)"
