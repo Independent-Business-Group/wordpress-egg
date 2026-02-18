@@ -1,0 +1,14 @@
+# WordPress PHP App - Ignore build artifacts and deployment scripts
+.git
+.github
+.gitignore
+*.md
+.DS_Store
+node_modules
+build-and-deploy.sh
+generate-app-spec.sh
+migrate-existing-sites.sh
+docker-compose.yml
+Dockerfile
+.dockerignore
+docker-entrypoint.sh

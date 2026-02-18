@@ -19,13 +19,13 @@ RUN apt-get update && apt-get install -y \
     mariadb-client \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
-        gd \
-        mysqli \
-        pdo_mysql \
-        zip \
-        exif \
-        opcache \
-        bcmath \
+    gd \
+    mysqli \
+    pdo_mysql \
+    zip \
+    exif \
+    opcache \
+    bcmath \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

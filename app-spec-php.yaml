@@ -1,0 +1,89 @@
+features:
+  - buildpack-stack=ubuntu-22
+
+ingress:
+  rules:
+    - component:
+        name: web
+      match:
+        path:
+          prefix: /
+
+name: wordpress-performwritecom
+region: syd
+
+services:
+  - name: web
+    environment_slug: php
+    instance_count: 1
+    instance_size_slug: basic-s
+    http_port: 8080
+
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: Independent-Business-Group/wordpress-egg
+
+    # Post-build hook to download WordPress and generate config
+    build_command: chmod +x .do-post-build.sh && ./.do-post-build.sh
+
+    # Health Check
+    health_check:
+      failure_threshold: 3
+      http_path: /
+      initial_delay_seconds: 60
+      period_seconds: 10
+      success_threshold: 1
+      timeout_seconds: 5
+
+    # Environment Variables
+    envs:
+      # Database Configuration
+      - key: DB_HOST
+        scope: RUN_AND_BUILD_TIME
+        value: YOUR_DB_HOST
+      - key: DB_PORT
+        scope: RUN_AND_BUILD_TIME
+        value: "25060"
+      - key: DB_NAME
+        scope: RUN_AND_BUILD_TIME
+        value: YOUR_DB_NAME
+      - key: DB_USER
+        scope: RUN_AND_BUILD_TIME
+        value: YOUR_DB_USER
+      - key: DB_PASSWORD
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: YOUR_DB_PASSWORD
+
+      # Table Prefix
+      - key: TABLE_PREFIX
+        scope: RUN_AND_BUILD_TIME
+        value: wp_
+
+      # DO Spaces Configuration (optional - for media CDN)
+      - key: DO_SPACES_BUCKET
+        scope: RUN_TIME
+        value: YOUR_SPACES_BUCKET
+      - key: DO_SPACES_ENDPOINT
+        scope: RUN_TIME
+        value: syd1.digitaloceanspaces.com
+      - key: DO_SPACES_REGION
+        scope: RUN_TIME
+        value: syd1
+      - key: DO_SPACES_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: YOUR_SPACES_KEY
+      - key: DO_SPACES_SECRET
+        scope: RUN_TIME
+        type: SECRET
+        value: YOUR_SPACES_SECRET
+      - key: BUCKET_SITE_PATH
+        scope: RUN_TIME
+        value: YOUR_SITE_NAME
+
+      # WordPress Configuration
+      - key: DB_CHARSET
+        scope: RUN_AND_BUILD_TIME
+        value: utf8mb4
