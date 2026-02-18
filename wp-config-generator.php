@@ -53,6 +53,9 @@ define('DB_HOST', '$db_host_full');
 define('DB_CHARSET', '$db_charset');
 define('DB_COLLATE', '$db_collate');
 
+// Force SSL for DigitalOcean Managed Database
+define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);
+
 // Database Table Prefix
 \$table_prefix = '$table_prefix';
 
