@@ -45,6 +45,11 @@ RUN wget -q https://wordpress.org/latest.tar.gz \
     && tar -xzf latest.tar.gz --strip-components=1 \
     && rm latest.tar.gz
 
+# Install WP-CLI for plugin management
+RUN wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
 # Copy plugin and theme manifests
 COPY plugins.txt /tmp/plugins.txt
 COPY themes.txt /tmp/themes.txt
@@ -179,6 +184,16 @@ fi
 chown -R www-data:www-data /var/www/html
 find /var/www/html -type d -exec chmod 755 {} \;
 find /var/www/html -type f -exec chmod 644 {} \;
+
+# Activate WP Offload Media plugin (if WordPress tables exist)
+echo "Activating WP Offload Media plugin..."
+if wp core is-installed --path=/var/www/html --allow-root 2>/dev/null; then
+    wp plugin activate amazon-s3-and-cloudfront --path=/var/www/html --allow-root 2>/dev/null && \
+        echo "✅ WP Offload Media activated" || \
+        echo "⚠️  Plugin activation will happen after WordPress installation"
+else
+    echo "⏭️  WordPress not yet installed, skipping plugin activation"
+fi
 
 # Start Apache
 echo "Starting Apache..."
