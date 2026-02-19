@@ -1,0 +1,8 @@
+services:
+  wordpress:
+    # For local development: mount wp-content as volume
+    # This overrides the Dockerfile COPY and allows live editing
+    volumes:
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./ca-certificate.crt:/etc/ssl/certs/ca-certificate.crt:ro

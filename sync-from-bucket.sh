@@ -22,7 +22,16 @@ fi
 # Install s3cmd if not present
 if ! command -v s3cmd &> /dev/null; then
     echo "→ Installing s3cmd..."
-    sudo apt-get update && sudo apt-get install -y s3cmd
+    if command -v dnf &> /dev/null; then
+        sudo dnf install -y s3cmd
+    elif command -v apt-get &> /dev/null; then
+        sudo apt-get update && sudo apt-get install -y s3cmd
+    else
+        echo "❌ Could not install s3cmd. Please install manually:"
+        echo "   Fedora: sudo dnf install s3cmd"
+        echo "   Ubuntu: sudo apt-get install s3cmd"
+        exit 1
+    fi
 fi
 
 # Configure s3cmd
