@@ -56,7 +56,7 @@ RUN mkdir -p /var/www/html/wp-content/plugins && \
     plugin=$(echo "$plugin" | sed 's/#.*//' | xargs); \
     if [ -n "$plugin" ]; then \
     echo "Installing plugin: $plugin"; \
-    wget -q "https://downloads.wordpress.org/plugin/${plugin}.latest.zip" -O "${plugin}.zip" && \
+    wget -q "https://downloads.wordpress.org/plugin/${plugin}.zip" -O "${plugin}.zip" && \
     unzip -q "${plugin}.zip" && \
     rm "${plugin}.zip" || echo "Warning: Failed to install ${plugin}"; \
     fi \
