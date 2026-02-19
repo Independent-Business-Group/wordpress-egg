@@ -32,7 +32,7 @@ RUN echo '<Directory /var/www/html/>\n\
     Options Indexes FollowSymLinks\n\
     AllowOverride All\n\
     Require all granted\n\
-</Directory>' >> /etc/apache2/sites-available/000-default.conf
+    </Directory>' >> /etc/apache2/sites-available/000-default.conf
 
 # Configure PHP for better WordPress performance
 RUN { \
@@ -90,6 +90,50 @@ RUN mkdir -p /var/www/html/wp-content/themes && \
     fi \
     done < /tmp/themes.txt && \
     rm /tmp/themes.txt
+
+# Create mu-plugins directory and install CDN URL rewrite plugin
+RUN mkdir -p /var/www/html/wp-content/mu-plugins && \
+    cat > /var/www/html/wp-content/mu-plugins/cdn-url-rewrite.php << 'MUPLUGIN'
+<?php
+/**
+ * Plugin Name: CDN URL Rewrite
+ * Description: Rewrites upload URLs to use DigitalOcean Spaces CDN
+ * Version: 1.0
+ * Author: Auto-generated
+ */
+
+function cdn_rewrite_upload_urls($content) {
+    $cdn_url = 'https://' . getenv('DO_SPACES_CDN_ENDPOINT') . '/' . getenv('BUCKET_SITE_PATH') . '/wp-content/uploads';
+    $local_url = 'http://localhost:8080/wp-content/uploads';
+    
+    // Also handle other local URLs
+    $site_url = get_option('home');
+    $site_upload_url = $site_url . '/wp-content/uploads';
+    
+    $content = str_replace($local_url, $cdn_url, $content);
+    $content = str_replace($site_upload_url, $cdn_url, $content);
+    
+    return $content;
+}
+
+// Apply to various filters
+add_filter('the_content', 'cdn_rewrite_upload_urls', 100);
+add_filter('the_excerpt', 'cdn_rewrite_upload_urls', 100);
+add_filter('widget_text', 'cdn_rewrite_upload_urls', 100);
+add_filter('wp_get_attachment_url', 'cdn_rewrite_upload_urls', 100);
+add_filter('wp_calculate_image_srcset', function($sources) {
+    foreach ($sources as &$source) {
+        $source['url'] = cdn_rewrite_upload_urls($source['url']);
+    }
+    return $sources;
+}, 100);
+
+// Add header output buffering to catch all output
+function cdn_buffer_start() { ob_start('cdn_rewrite_upload_urls'); }
+function cdn_buffer_end() { if (ob_get_length()) ob_end_flush(); }
+add_action('wp_head', 'cdn_buffer_start', 0);
+add_action('wp_footer', 'cdn_buffer_end', 999);
+MUPLUGIN
 
 # Create uploads directory (will be served from DO Spaces, not local)
 RUN mkdir -p /var/www/html/wp-content/uploads
@@ -171,6 +215,8 @@ define('AS3CF_SETTINGS', serialize([
 'serve-from-s3' => true,
 'remove-local-file' => true,
 'object-prefix' => getenv('BUCKET_SITE_PATH') . '/wp-content/uploads/',
+'enable-object-prefix' => true,
+'force-https' => true,
 ]));
 
 /* That's all, stop editing! Happy publishing. */
@@ -194,8 +240,8 @@ find /var/www/html -type f -exec chmod 644 {} \;
 
 # Create .htaccess for WordPress permalinks if it doesn't exist
 if [ ! -f /var/www/html/.htaccess ]; then
-    echo "Creating .htaccess for WordPress permalinks..."
-    cat > /var/www/html/.htaccess << 'HTACCESS'
+echo "Creating .htaccess for WordPress permalinks..."
+cat > /var/www/html/.htaccess << 'HTACCESS'
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -208,19 +254,19 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
 HTACCESS
-    chown www-data:www-data /var/www/html/.htaccess
-    chmod 644 /var/www/html/.htaccess
-    echo "✅ .htaccess created"
+chown www-data:www-data /var/www/html/.htaccess
+chmod 644 /var/www/html/.htaccess
+echo "✅ .htaccess created"
 fi
 
 # Activate WP Offload Media plugin (if WordPress tables exist)
 echo "Activating WP Offload Media plugin..."
 if wp core is-installed --path=/var/www/html --allow-root 2>/dev/null; then
-    wp plugin activate amazon-s3-and-cloudfront --path=/var/www/html --allow-root 2>/dev/null && \
-        echo "✅ WP Offload Media activated" || \
-        echo "⚠️  Plugin activation will happen after WordPress installation"
+wp plugin activate amazon-s3-and-cloudfront --path=/var/www/html --allow-root 2>/dev/null && \
+    echo "✅ WP Offload Media activated" || \
+    echo "⚠️  Plugin activation will happen after WordPress installation"
 else
-    echo "⏭️  WordPress not yet installed, skipping plugin activation"
+echo "⏭️  WordPress not yet installed, skipping plugin activation"
 fi
 
 # Start Apache

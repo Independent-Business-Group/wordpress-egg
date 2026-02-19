@@ -2,6 +2,16 @@
 
 Clean WordPress deployment using DigitalOcean App Platform PHP buildpack.
 
+## Features
+
+- ✅ Automatic CDN URL rewriting for uploads (no database changes required)
+- ✅ Plugin/theme manifest system for reproducible builds
+- ✅ Environment-based configuration (no secrets in code)
+- ✅ DigitalOcean Spaces integration with CDN support
+- ✅ Local Docker development matching production
+- ✅ Permalink support with .htaccess auto-generation
+- ✅ Must-use plugins for automatic CDN rewriting
+
 ## How It Works
 
 1. **Build Phase**
@@ -26,13 +36,16 @@ Configure these in DigitalOcean App Platform:
 - `TABLE_PREFIX` - WordPress table prefix (default: wp_)
 - `DB_CHARSET` - Database charset (default: utf8mb4)
 
-### Optional - DigitalOcean Spaces (RUN_TIME scope)
+### CDN / DigitalOcean Spaces (RUN_TIME scope)
 - `DO_SPACES_BUCKET` - Spaces bucket name
-- `DO_SPACES_ENDPOINT` - Spaces endpoint
+- `DO_SPACES_ENDPOINT` - Spaces origin endpoint
+- `DO_SPACES_CDN_ENDPOINT` - Spaces CDN endpoint
 - `DO_SPACES_REGION` - Spaces region
 - `DO_SPACES_KEY` - Spaces access key (SECRET)
 - `DO_SPACES_SECRET` - Spaces secret key (SECRET)
 - `BUCKET_SITE_PATH` - Path within bucket for this site
+
+**Note:** See [CDN-URL-REWRITE.md](CDN-URL-REWRITE.md) for how upload URLs are automatically rewritten to use the CDN.
 
 ## Deployment
 
