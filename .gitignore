@@ -16,6 +16,8 @@ wp-content/cache/
 wp-content/upgrade/
 wp-content/backup-db/
 wp-content/*.log
+*.old/                  # Disabled/broken plugins and themes
+**/*.old                # Any .old files
 
 # WordPress Config (generated during build)
 wp-config.php
