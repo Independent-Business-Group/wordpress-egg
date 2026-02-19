@@ -8,16 +8,13 @@ license.txt
 readme.html
 
 # WordPress Content
-# Allow wp-content but manage specific subdirectories
-wp-content/uploads/     # Served from DO Spaces
-wp-content/plugins/     # Managed via plugins.txt manifest
-wp-content/themes/      # Managed via themes.txt manifest (except default themes from core)
-wp-content/cache/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/*.log
-*.old/                  # Disabled/broken plugins and themes
-**/*.old                # Any .old files
+# Completely ignore wp-content - it's generated fresh during Docker build
+# - Core files from WordPress download
+# - Plugins installed from plugins.txt manifest  
+# - Themes installed from themes.txt manifest
+# - Must-use plugins created in Dockerfile
+# - Uploads served from DigitalOcean Spaces
+wp-content/
 
 # WordPress Config (generated during build)
 wp-config.php

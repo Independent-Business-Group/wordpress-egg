@@ -1,12 +1,19 @@
 # WordPress Themes Manifest
 # One theme slug per line (wordpress.org slug)
 # Lines starting with # are comments
+# All themes are downloaded from wordpress.org theme repository during Docker build
 
 # Active Theme
 astra
 
-# Premium themes (not available on wordpress.org - must be installed manually):
-# - virtue_premium (Kadence Premium)
-# - book-store-child
+# Common optional themes (commented out - uncomment as needed)
+# twentytwentyfour
+# twentytwentythree
+# generatepress
+# oceanwp
+# kadence
 
-# Note: Default WordPress themes (twentytwenty*) are included in core
+# Note: Default WordPress themes (twentytwenty*) are included in WordPress core
+# Note: Premium/commercial themes not available on wordpress.org must be installed manually:
+#       - virtue_premium (Kadence Premium)
+#       - Custom child themes
