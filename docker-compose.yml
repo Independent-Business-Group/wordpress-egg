@@ -1,0 +1,49 @@
+services:
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wp-app
+    restart: unless-stopped
+    environment:
+      # Database Configuration (DigitalOcean Managed Database)
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_CHARSET: utf8mb4
+      DB_COLLATE: ''
+      
+      # WordPress Configuration
+      TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
+      WP_DEBUG: ${WP_DEBUG:-true}
+      WP_DEBUG_LOG: ${WP_DEBUG_LOG:-true}
+      WP_DEBUG_DISPLAY: ${WP_DEBUG_DISPLAY:-false}
+      
+      # Site URL (for local development)
+      WORDPRESS_SITE_URL: ${SITE_URL:-http://localhost:8080}
+      
+      # DigitalOcean Spaces Configuration
+      DO_SPACES_BUCKET: ${DO_SPACES_BUCKET}
+      DO_SPACES_ENDPOINT: ${DO_SPACES_ENDPOINT}
+      DO_SPACES_REGION: ${DO_SPACES_REGION}
+      DO_SPACES_KEY: ${DO_SPACES_KEY}
+      DO_SPACES_SECRET: ${DO_SPACES_SECRET}
+      BUCKET_SITE_PATH: ${BUCKET_SITE_PATH}
+      
+    volumes:
+      # Only mount uploads.ini and SSL cert
+      # wp-content is now baked into the Docker image
+      # uploads are served from DO Spaces via WP Offload Media
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./ca-certificate.crt:/etc/ssl/certs/ca-certificate.crt:ro
+    ports:
+      - "8080:8080"
+    networks:
+      - wordpress-network
+
+networks:
+  wordpress-network:
+    name: wordpress-network
+    driver: bridge

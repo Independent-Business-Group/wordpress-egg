@@ -1,12 +1,20 @@
 # WordPress Core (downloaded during build)
 /wp-admin/
 /wp-includes/
-/wp-content/
 wp-*.php
 index.php         # WordPress core file (not the placeholder!)
 xmlrpc.php
 license.txt
 readme.html
+
+# WordPress Content
+# Allow wp-content but manage specific subdirectories
+wp-content/uploads/     # Served from DO Spaces
+wp-content/plugins/     # Managed via plugins.txt manifest
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/*.log
 
 # WordPress Config (generated during build)
 wp-config.php
@@ -14,15 +22,9 @@ wp-config.php
 # Build artifacts
 wordpress.tar.gz
 
-# Docker files (local development only)
-Dockerfile
-docker-compose.yml
-docker-entrypoint.sh
-.dockerignore
-uploads.ini
-commands.sh
-start-local.sh
-README-DOCKER.md
+# Docker files (keep Dockerfile and docker-compose.yml in git)
+# Local override only:
+docker-compose.override.yml
 
 # Backup files
 *.bak

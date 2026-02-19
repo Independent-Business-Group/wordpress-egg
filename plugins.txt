@@ -1,0 +1,30 @@
+# WordPress Plugin Manifest
+# This file lists plugins to be installed during Docker build
+# Format: plugin-slug (one per line, comments with #)
+
+# Media offload for DO Spaces (REQUIRED)
+amazon-s3-and-cloudfront
+
+# Production active plugins (from database)
+contact-form-7
+disable-comments
+health-check
+log-cleaner-for-ithemes-security
+woo-order-export-lite
+woocommerce-autocomplete-order
+woocommerce
+wordpress-seo
+wp-mail-smtp
+
+# Additional available plugins (currently inactive)
+# akismet
+# advanced-custom-fields
+# all-in-one-wp-migration
+# backwpup
+# black-studio-tinymce-widget
+# jetpack
+# mailchimp-for-wp
+# revslider
+# siteorigin-panels
+# so-widgets-bundle
+# social-media-feather
