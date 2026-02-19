@@ -1,0 +1,30 @@
+# Exclude uploads - these are served from DO Spaces
+wp-content/uploads/
+
+# Exclude backup directories
+wp-content.docker-backup/
+*.old/
+
+# Exclude local development files
+.env
+.env.*
+*.log
+sync.log
+*.md
+README.md
+
+# Exclude git
+.git/
+.gitignore
+
+# Exclude sync scripts
+sync-*.py
+sync-*.sh
+fix-*.sh
+
+# Exclude Docker files
+docker-compose.yml
+Dockerfile
+
+# Exclude certificates (mounted as volume)
+ca-certificate.crt

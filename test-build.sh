@@ -4,13 +4,15 @@
 set -e
 
 echo "=========================================="
-echo "Testing Plugin Manifest System"
+echo "Testing Plugin & Theme Manifest System"
 echo "=========================================="
 echo ""
 
-# Count plugins in manifest
+# Count plugins and themes in manifests
 total_plugins=$(grep -v '^#' plugins.txt | grep -v '^$' | wc -l)
+total_themes=$(grep -v '^#' themes.txt | grep -v '^$' | wc -l)
 echo "📋 Plugins in manifest: $total_plugins"
+echo "🎨 Themes in manifest: $total_themes"
 echo ""
 
 # Estimate build time
@@ -20,6 +22,9 @@ echo ""
 # Show what will be installed
 echo "🔌 Plugins to install:"
 grep -v '^#' plugins.txt | grep -v '^$' | sed 's/^/   - /'
+echo ""
+echo "🎨 Themes to install:"
+grep -v '^#' themes.txt | grep -v '^$' | sed 's/^/   - /'
 echo ""
 
 read -p "Build Docker image? (y/n) " -n 1 -r
@@ -45,6 +50,9 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "🔍 Plugins installed in image:"
     docker run --rm wordpress-egg-wordpress ls -1 /var/www/html/wp-content/plugins/ | grep -v '^$' | wc -l
+    echo ""
+    echo "🎨 Themes installed in image:"
+    docker run --rm wordpress-egg-wordpress ls -1 /var/www/html/wp-content/themes/ | grep -v '^$' | wc -l
     echo ""
     echo "Next: docker-compose up -d"
 else

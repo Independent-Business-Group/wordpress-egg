@@ -45,8 +45,9 @@ RUN wget -q https://wordpress.org/latest.tar.gz \
     && tar -xzf latest.tar.gz --strip-components=1 \
     && rm latest.tar.gz
 
-# Copy plugin manifest
+# Copy plugin and theme manifests
 COPY plugins.txt /tmp/plugins.txt
+COPY themes.txt /tmp/themes.txt
 
 # Download and install plugins from manifest
 RUN mkdir -p /var/www/html/wp-content/plugins && \
@@ -62,6 +63,21 @@ RUN mkdir -p /var/www/html/wp-content/plugins && \
     fi \
     done < /tmp/plugins.txt && \
     rm /tmp/plugins.txt
+
+# Download and install themes from manifest
+RUN mkdir -p /var/www/html/wp-content/themes && \
+    cd /var/www/html/wp-content/themes && \
+    while IFS= read -r theme || [ -n "$theme" ]; do \
+    # Skip empty lines and comments
+    theme=$(echo "$theme" | sed 's/#.*//' | xargs); \
+    if [ -n "$theme" ]; then \
+    echo "Installing theme: $theme"; \
+    wget -q "https://downloads.wordpress.org/theme/${theme}.zip" -O "${theme}.zip" && \
+    unzip -q "${theme}.zip" && \
+    rm "${theme}.zip" || echo "Warning: Failed to install ${theme}"; \
+    fi \
+    done < /tmp/themes.txt && \
+    rm /tmp/themes.txt
 
 # Create uploads directory (will be served from DO Spaces, not local)
 RUN mkdir -p /var/www/html/wp-content/uploads

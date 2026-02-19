@@ -11,6 +11,7 @@ readme.html
 # Allow wp-content but manage specific subdirectories
 wp-content/uploads/     # Served from DO Spaces
 wp-content/plugins/     # Managed via plugins.txt manifest
+wp-content/themes/      # Managed via themes.txt manifest (except default themes from core)
 wp-content/cache/
 wp-content/upgrade/
 wp-content/backup-db/
