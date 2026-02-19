@@ -39,6 +39,11 @@ index.php.bak
 .vscode/
 *.log
 
+# Secrets and credentials
+DO-SECRETS.md
+app-spec-docker-with-secrets.yaml
+*-with-secrets.*
+
 # Dependencies
 node_modules/
 vendor/

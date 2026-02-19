@@ -61,6 +61,9 @@ RUN wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 COPY plugins.txt /tmp/plugins.txt
 COPY themes.txt /tmp/themes.txt
 
+# Copy SSL certificate for DigitalOcean Managed Database
+COPY ca-certificate.crt /etc/ssl/certs/ca-certificate.crt
+
 # Download and install plugins from manifest
 RUN mkdir -p /var/www/html/wp-content/plugins && \
     cd /var/www/html/wp-content/plugins && \
@@ -96,24 +99,24 @@ RUN mkdir -p /var/www/html/wp-content/mu-plugins && \
     cat > /var/www/html/wp-content/mu-plugins/cdn-url-rewrite.php << 'MUPLUGIN'
 <?php
 /**
- * Plugin Name: CDN URL Rewrite
- * Description: Rewrites upload URLs to use DigitalOcean Spaces CDN
- * Version: 1.0
- * Author: Auto-generated
- */
+* Plugin Name: CDN URL Rewrite
+* Description: Rewrites upload URLs to use DigitalOcean Spaces CDN
+* Version: 1.0
+* Author: Auto-generated
+*/
 
 function cdn_rewrite_upload_urls($content) {
-    $cdn_url = 'https://' . getenv('DO_SPACES_CDN_ENDPOINT') . '/' . getenv('BUCKET_SITE_PATH') . '/wp-content/uploads';
-    $local_url = 'http://localhost:8080/wp-content/uploads';
-    
-    // Also handle other local URLs
-    $site_url = get_option('home');
-    $site_upload_url = $site_url . '/wp-content/uploads';
-    
-    $content = str_replace($local_url, $cdn_url, $content);
-    $content = str_replace($site_upload_url, $cdn_url, $content);
-    
-    return $content;
+$cdn_url = 'https://' . getenv('DO_SPACES_CDN_ENDPOINT') . '/' . getenv('BUCKET_SITE_PATH') . '/wp-content/uploads';
+$local_url = 'http://localhost:8080/wp-content/uploads';
+
+// Also handle other local URLs
+$site_url = get_option('home');
+$site_upload_url = $site_url . '/wp-content/uploads';
+
+$content = str_replace($local_url, $cdn_url, $content);
+$content = str_replace($site_upload_url, $cdn_url, $content);
+
+return $content;
 }
 
 // Apply to various filters
@@ -122,10 +125,10 @@ add_filter('the_excerpt', 'cdn_rewrite_upload_urls', 100);
 add_filter('widget_text', 'cdn_rewrite_upload_urls', 100);
 add_filter('wp_get_attachment_url', 'cdn_rewrite_upload_urls', 100);
 add_filter('wp_calculate_image_srcset', function($sources) {
-    foreach ($sources as &$source) {
-        $source['url'] = cdn_rewrite_upload_urls($source['url']);
-    }
-    return $sources;
+foreach ($sources as &$source) {
+$source['url'] = cdn_rewrite_upload_urls($source['url']);
+}
+return $sources;
 }, 100);
 
 // Add header output buffering to catch all output

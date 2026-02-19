@@ -1,0 +1,117 @@
+name: wordpress-performwritecom
+region: syd
+
+services:
+  - name: wordpress
+    # Use Docker deployment instead of buildpack
+    dockerfile_path: Dockerfile
+    
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: Independent-Business-Group/wordpress-egg
+    
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    
+    http_port: 8080
+    
+    # Health check
+    health_check:
+      http_path: /
+      initial_delay_seconds: 120
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+    
+    # Routes
+    routes:
+      - path: /
+    
+    # Environment Variables
+    envs:
+      # Database Configuration (DigitalOcean Managed Database)
+      - key: DB_HOST
+        scope: RUN_AND_BUILD_TIME
+        value: wordpress-mysql-cluster-do-user-28531160-0.i.db.ondigitalocean.com
+      
+      - key: DB_PORT
+        scope: RUN_AND_BUILD_TIME
+        value: "25060"
+      
+      - key: DB_NAME
+        scope: RUN_AND_BUILD_TIME
+        value: performwritecom_wp
+      
+      - key: DB_USER
+        scope: RUN_AND_BUILD_TIME
+        value: doadmin
+      
+      - key: DB_PASSWORD
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: YOUR_DB_PASSWORD_HERE
+      
+      # WordPress Table Prefix
+      - key: TABLE_PREFIX
+        scope: RUN_AND_BUILD_TIME
+        value: xfwlw_
+      
+      - key: DB_CHARSET
+        scope: RUN_AND_BUILD_TIME
+        value: utf8mb4
+      
+      - key: DB_COLLATE
+        scope: RUN_AND_BUILD_TIME
+        value: ""
+      
+      # DigitalOcean Spaces Configuration (for CDN)
+      - key: DO_SPACES_BUCKET
+        scope: RUN_TIME
+        value: everydaytech-wordpress
+      
+      - key: DO_SPACES_ENDPOINT
+        scope: RUN_TIME
+        value: syd1.digitaloceanspaces.com
+      
+      - key: DO_SPACES_CDN_ENDPOINT
+        scope: RUN_TIME
+        value: everydaytech-wordpress.syd1.cdn.digitaloceanspaces.com
+      
+      - key: DO_SPACES_REGION
+        scope: RUN_TIME
+        value: syd1
+      
+      - key: DO_SPACES_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: YOUR_SPACES_KEY_HERE
+      
+      - key: DO_SPACES_SECRET
+        scope: RUN_TIME
+        type: SECRET
+        value: YOUR_SPACES_SECRET_HERE
+      
+      - key: BUCKET_SITE_PATH
+        scope: RUN_TIME
+        value: performwritecom
+      
+      # WordPress Site URL (will be set by App Platform)
+      - key: WORDPRESS_SITE_URL
+        scope: RUN_TIME
+        value: ${APP_URL}
+      
+      # WordPress Debug (disable in production)
+      - key: WP_DEBUG
+        scope: RUN_TIME
+        value: "false"
+      
+      - key: WP_DEBUG_LOG
+        scope: RUN_TIME
+        value: "false"
+      
+      - key: WP_DEBUG_DISPLAY
+        scope: RUN_TIME
+        value: "false"
+
