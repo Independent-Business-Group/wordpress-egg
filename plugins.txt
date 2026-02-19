@@ -28,3 +28,4 @@ wp-mail-smtp
 # siteorigin-panels
 # so-widgets-bundle
 # social-media-feather
+yoast-seo
