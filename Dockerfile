@@ -146,15 +146,15 @@ define('WP_SITEURL', getenv('WORDPRESS_SITE_URL'));
 }
 
 // ** WP Offload Media Configuration for DigitalOcean Spaces ** //
-// This serves uploads directly from DO Spaces instead of syncing
+// This serves uploads directly from DO Spaces CDN instead of syncing
 define('AS3CF_SETTINGS', serialize([
 'provider' => 'do',
 'access-key-id' => getenv('DO_SPACES_KEY'),
 'secret-access-key' => getenv('DO_SPACES_SECRET'),
 'bucket' => getenv('DO_SPACES_BUCKET'),
 'region' => getenv('DO_SPACES_REGION'),
-'domain' => 'path',  // Use bucket path-style URLs
-'cloudfront' => getenv('DO_SPACES_ENDPOINT'),
+'domain' => 'cloudfront',  // Use CDN endpoint
+'cloudfront' => getenv('DO_SPACES_CDN_ENDPOINT'),
 'copy-to-s3' => true,
 'serve-from-s3' => true,
 'remove-local-file' => true,
