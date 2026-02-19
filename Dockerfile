@@ -27,6 +27,13 @@ RUN a2enmod rewrite expires headers
 # Configure Apache to listen on port 8080
 RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 
+# Enable .htaccess support for WordPress permalinks
+RUN echo '<Directory /var/www/html/>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>' >> /etc/apache2/sites-available/000-default.conf
+
 # Configure PHP for better WordPress performance
 RUN { \
     echo 'opcache.enable=1'; \
@@ -184,6 +191,27 @@ fi
 chown -R www-data:www-data /var/www/html
 find /var/www/html -type d -exec chmod 755 {} \;
 find /var/www/html -type f -exec chmod 644 {} \;
+
+# Create .htaccess for WordPress permalinks if it doesn't exist
+if [ ! -f /var/www/html/.htaccess ]; then
+    echo "Creating .htaccess for WordPress permalinks..."
+    cat > /var/www/html/.htaccess << 'HTACCESS'
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+HTACCESS
+    chown www-data:www-data /var/www/html/.htaccess
+    chmod 644 /var/www/html/.htaccess
+    echo "✅ .htaccess created"
+fi
 
 # Activate WP Offload Media plugin (if WordPress tables exist)
 echo "Activating WP Offload Media plugin..."
